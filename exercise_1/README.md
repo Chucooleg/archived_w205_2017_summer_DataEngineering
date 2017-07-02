@@ -12,6 +12,8 @@ Step 2: Transforming Tables
 
 $cd /home/w205/w205_2017_summer/exercise_1/transforming
 
+$ chmod u+x,g+x *
+
 $spark-sql
 
 >> source 3nf_transform.sql;
