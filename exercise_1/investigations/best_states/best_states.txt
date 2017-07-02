@@ -1,0 +1,75 @@
+<Spark-sql Query>
+
+SELECT 
+state,
+ROUND(procedures_mean, 4) as procedures_mean,
+CEIL((PERCENT_RANK() OVER(ORDER BY procedures_mean DESC) + 0.0000001)*5) as
+rank_mean_group,
+ROUND(procedures_std_err, 4) as procedures_std_err,
+RANK() OVER(PARTITION BY CEIL((PERCENT_RANK() OVER(ORDER BY procedures_mean
+DESC) + 0.0000001)*5) ORDER BY procedures_std_err ASC) as
+partition_rank_std_err
+FROM analytical_procedures_by_state 
+HAVING rank_mean_group = 1
+ORDER BY procedures_std_err ASC
+LIMIT 10 ;
+
+
+<Result>
+FL      0.3213  1.0     0.2052  1
+NY      0.7542  1.0     0.236   2
+VA      0.3392  1.0     0.2665  3
+KY      0.4918  1.0     0.2979  4
+MS      0.3623  1.0     0.3491  5
+NJ      0.3886  1.0     0.3537  6
+AR      0.6959  1.0     0.359   7
+WV      0.4363  1.0     0.4208  8
+NV      0.6596  1.0     0.5732  9
+DC      1.158   1.0     1.3049  10
+
+
+<Dedicated Tables>
+
+intermediate_procedures
+analytical_procedures_by_state
+
+
+<Usage>
+
+“Intermediate_procedures” same usage as in question 1.
+
+“analytical_procedures_by_state” table is constructed to summarize
+statistics across up to 36 procedure performances for each state. Key columns
+“procedures_mean” and “procedures_std_err” having similar
+meaning and usage as “analytical_procedures_by_provider” table in
+question 1.
+
+The Spark-sql query performs ranking of our states. First, based on
+“procedures_mean”, it ranks states in descending order and divided
+them into 5 ranked buckets with roughly 10 hospitals each. Then, within each
+bucket, the query rank states based on “procedures_std_err” in
+ascending order. Therefore, the query output shows 10 states within bucket 1
+according to “procedures_mean” and ordered according to
+“procedures_std_err”.
+
+
+<Challenges>
+
+Similar problems and solutions as question 1
+
+
+<Data Considered>
+
+States that reported too few procedures or too low a proportion of hospitals
+participating also should not be considered. Therefore, states reporting fewer
+than 26 (75%) of all 36 unique procedures or less than 75% of their hospitals
+are excluded. This filters the list down to 49 hospitals.
+
+
+<Conclusion>
+
+Our query returns Florida, New York State and Virginia to the top three states
+for best healthcare. Theses states have weighted, standardized procedure
+scores large enough to be placed in the first bucket, and the small enough
+standard errors to be placed top three within the same bucket.
+

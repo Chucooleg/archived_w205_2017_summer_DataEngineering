@@ -1,0 +1,81 @@
+<Spark-sql Query>
+
+SELECT 
+RANK() OVER(ORDER BY a.std_err DESC) as rank_std_err,
+a.std_err,
+a.measure_id,
+m.measure_name
+FROM analytical_procedures_stats a
+INNER JOIN 3nf_measures m
+ON a.measure_id = m.measure_id
+WHERE a.hospitals_count > 4805*0.5
+ORDER BY a.std_err DESC
+LIMIT 10;
+
+
+<Dedicated Tables>
+
+intermediate_procedures
+analytical_procedures_stats
+
+
+<Result>
+
+1       1.6997370703204877      ED_1b   Median Time from ED Arrival to ED
+Departure for Admitted ED Patients
+2       1.0699328299706459      ED_2b   Admit Decision Time to ED Departure
+Time for Admitted Patients
+3       0.7195658430666744      OP_18b  Median Time from ED Arrival to ED
+Departure for Discharged ED Patients
+4       0.46071188014472914     OP_29   Appropriate Follow-Up Interval for
+Normal Colonoscopy in Average Risk Patients
+5       0.3679465549612287      OP_30   Colonoscopy Interval for Patients with
+a History of Adenomatous Polyps - Avoidance of Inappropriate Use
+6       0.3180167352659288      OP_21   Median Time to Pain Management for
+Long Bone Fracture
+7       0.3028804372394734      OP_20   Median Time from ED Arrival to
+Provider Contact for ED patients
+8       0.23241682591262738     IMM_3_OP_27_FAC_ADHPCT  Healthcare workers
+given influenza vaccination
+9       0.20665013685006753     IMM_2   Influenza Immunization
+10      0.08884347936394171     PC_01   Elective Delivery
+
+
+<Usage>
+
+“Intermediate_procedures” same usage as in question 1.
+“analytical_procedures_stats” table is constructed to provide
+procedure statistics summarize across all hospitals. Key column
+“std_err” measures variability of each procedure based on the sample
+standard deviation and sample size available for each procedure. A procedure
+with higher “std_err” is estimated to have greater variability across
+all hospitals.
+The Spark-sql query performs ranking of our procedures based on
+“std_err” in descending order.
+
+
+<Challenges>
+
+Each procedure is reported by different number of hospitals so we don’t
+have a census but a sample here. This difference in terms of observation size
+can throw off our measure of variability. Therefore, in the
+“analytical_procedures_stats” table, our variability measure is
+“std_err” – the standard error rather than standard deviation
+across varying number of hospitals.
+
+
+<Data Considered>
+
+Procedures reported by too few hospitals should not be considered. Therefore,
+procedures with less than 2403 (50%) hospitals are excluded. This filters the
+list down to 21 procedures.
+
+
+<Conclusion>
+
+The top three and the seventh measures are all related to performance of the
+Emergency Department. We can imagine that depending on the locations of the
+hospitals, they expect different flows of patients. For instance, a hospital
+in the rural area would expect many less patients than a hospital in the urban
+area, especially one surrounded by traffic black spots.
+

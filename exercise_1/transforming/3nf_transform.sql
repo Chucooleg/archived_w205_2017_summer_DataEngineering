@@ -379,14 +379,14 @@ DROP TABLE 3nf_surveys_responses;
 
 CREATE TABLE 3nf_surveys_responses AS
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"communication_with_nurses" as dimension,
 			"baseline_rate" as subdimension,
 			cast(communication_with_nurses_baseline_rate as decimal(4,2)) score
             FROM    surveys_responses 
 UNION
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"communication_with_nurses" as dimension,
 			"performance_rate" as subdimension,
 			cast(communication_with_nurses_performance_rate as decimal(4,2)) score
@@ -395,14 +395,14 @@ SELECT
 UNION
 
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"communication_with_doctors" as dimension,
 			"baseline_rate" as subdimension,
 			cast(communication_with_doctors_baseline_rate as decimal(4,2)) score
             FROM    surveys_responses 
 UNION
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"communication_with_doctors" as dimension,
 			"performance_rate" as subdimension,
 			cast(communication_with_doctors_performance_rate as decimal(4,2)) score
@@ -411,14 +411,14 @@ SELECT
 UNION
 
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"responsiveness_of_hospital_staff" as dimension,
 			"baseline_rate" as subdimension,
 			cast(responsiveness_of_hospital_staff_baseline_rate as decimal(4,2)) score
             FROM    surveys_responses 
 UNION
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"responsiveness_of_hospital_staff" as dimension,
 			"performance_rate" as subdimension,
 			cast(responsiveness_of_hospital_staff_performance_rate as decimal(4,2)) score
@@ -427,14 +427,14 @@ SELECT
 UNION
 
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"pain_management" as dimension,
 			"baseline_rate" as subdimension,
 			cast(pain_management_baseline_rate as decimal(4,2)) score
             FROM    surveys_responses 
 UNION
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"pain_management" as dimension,
 			"performance_rate" as subdimension,
 			cast(pain_management_performance_rate as decimal(4,2)) score
@@ -443,14 +443,14 @@ SELECT
 UNION
 
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"communication_about_medicines" as dimension,
 			"baseline_rate" as subdimension,
 			cast(communication_about_medicines_baseline_rate as decimal(4,2)) score
             FROM    surveys_responses  
 UNION
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"communication_about_medicines" as dimension,
 			"performance_rate" as subdimension,
 			cast(communication_about_medicines_performance_rate as decimal(4,2)) score
@@ -459,7 +459,7 @@ SELECT
 UNION
 
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"cleanliness_and_quietness_of_hospital_environment" as dimension,
 			"baseline_rate" as subdimension,
 			cast(cleanliness_and_quietness_of_hospital_environment_baseline_rate as decimal(4,2)) score
@@ -467,7 +467,7 @@ SELECT
 
 UNION
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"cleanliness_and_quietness_of_hospital_environment" as dimension,
 			"performance_rate" as subdimension,
 			cast(cleanliness_and_quietness_of_hospital_environment_performance_rate as decimal(4,2)) score
@@ -476,14 +476,14 @@ SELECT
 UNION
 
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"discharge_information" as dimension,
 			"baseline_rate" as subdimension,
 			cast(discharge_information_baseline_rate as decimal(4,2)) score
             FROM    surveys_responses 
 UNION
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"discharge_information" as dimension,
 			"performance_rate" as subdimension,
 			cast(discharge_information_performance_rate as decimal(4,2)) score
@@ -492,14 +492,14 @@ SELECT
 UNION
 
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"overall_rating_of_hospital" as dimension,
 			"baseline_rate" as subdimension,
 			cast(overall_rating_of_hospital_baseline_rate as decimal(4,2)) score
             FROM    surveys_responses 
 UNION
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"overall_rating_of_hospital" as dimension,
 			"performance_rate" as subdimension,
 			cast(overall_rating_of_hospital_performance_rate as decimal(4,2)) score
@@ -508,14 +508,14 @@ SELECT
 UNION
 
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"hcahps" as dimension,
 			"base_score" as subdimension,
 			cast(hcahps_base_score as decimal(4,2)) score
             FROM    surveys_responses 
 UNION
 SELECT  
-			cast(provider_number as decimal(6,0)) provider_number,
+			cast(provider_number as decimal(6,0)) provider_id,
 			"hcahps" as dimension,
 			"consistency_score" as subdimension,
 			cast(hcahps_consistency_score as decimal(4,2)) score

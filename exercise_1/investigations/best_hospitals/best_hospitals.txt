@@ -1,0 +1,111 @@
+<Spark-sql Query>
+
+SELECT 
+provider_id,
+hospital_name,
+ROUND(procedures_mean, 4) as procedures_mean,
+CEIL((PERCENT_RANK() OVER(ORDER BY procedures_mean DESC) + 0.0000001)*100) as
+rank_mean_group,
+ROUND(procedures_std_err, 4) as procedures_std_err,
+RANK() OVER(PARTITION BY CEIL((PERCENT_RANK() OVER(ORDER BY procedures_mean
+DESC) + 0.0000001)*100) ORDER BY procedures_std_err ASC) as
+partition_rank_std_err
+FROM analytical_procedures_by_provider 
+HAVING rank_mean_group = 1
+ORDER BY procedures_std_err ASC
+LIMIT 10;
+
+
+<Result>
+
+190098  UNIVERSITY HEALTH SHREVEPORT    2.8334  1.0     2.4009  1
+110165  SOUTHERN REGIONAL MEDICAL CENTER        2.8105  1.0     2.566   2
+40036   BAPTIST HEALTH MEDICAL CENTER NORTH LITTLE ROCK 2.8787  1.0     2.583
+3
+310014  COOPER UNIVERSITY HOSPITAL      3.0245  1.0     2.8315  4
+250001  UNIVERSITY OF MISSISSIPPI MED CENTER    3.308   1.0     2.8454  5
+40020   ST BERNARDS MEDICAL CENTER      3.2053  1.0     2.8464  6
+290022  DESERT SPRINGS HOSPITAL 3.7612  1.0     3.0632  7
+50517   VICTOR VALLEY GLOBAL MEDICAL CENTER     3.1775  1.0     3.1327  8
+330027  NASSAU UNIVERSITY MEDICAL CENTER        3.1318  1.0     3.1344  9
+330056  BROOKLYN HOSPITAL CENTER AT DOWNTOWN CAMPUS     3.0549  1.0     3.1624
+10
+
+
+<Dedicated Tables>
+
+intermediate_procedures
+analytical_procedures_by_provider
+
+
+<Usage>
+
+“Intermediate_procedures” table is constructed to combine weighted,
+standardized procedure scores from “3nf_effective_care” and
+“3nf_readmissions”. Each row is specific to the hospital and
+procedure.
+
+“analytical_procedures_by_provider” table is constructed to summarize
+statistics across up to 36 procedure performances for each hospital. Key
+columns are point measure “procedures_mean” and consistency measure
+“procedures_std_err”. A higher value of “procedures_mean”
+means a better performing hospital and lower value of
+“procedures_std_err” means a more consistent hospital.
+
+The Spark-sql query performs ranking of our hospitals. First, based on
+“procedures_mean”, it ranks hospitals in descending order and divided
+them into 100 ranked buckets with roughly 30 hospitals each. Then, within each
+bucket, the query rank hospitals based on “procedures_std_err” in
+ascending order. Therefore, the query output shows 10 hospitals within bucket
+1 according to “procedures_mean” and ordered according to
+“procedures_std_err”.
+
+
+<Challenges>
+
+First, the scale of scores in “readmissions” is different from that in
+“timely and effective care”, making it hard to analyze them together.
+Therefore, in the “intermediate_procedures” table,
+“measure_score” for per procedure per hospital need to be
+standardized. To this end, “standardized_score” measures the number of
+standard deviations each “measure_score” is away from the mean of each
+procedure summarized across all hospitals.
+
+Second, not all procedures should be weighed equally. For example, mortality
+rate from any critical diseases should be considered more heavily than
+immunization services, and immunization services should be considered heavier
+than post discharge follow-ups. Therefore, five levels of weights are assigned
+to the collection of procedures and “weighted_standardized_score” is
+derived. As a brief summary of weights, procedures belonging to critical
+treatment effectiveness is weighed above general treatment effectiveness,
+which is weighted above short-term services efficiency, which is weighted
+above long-term services efficiency. A detailed list of procedures break down
+can be found in the appendix.
+
+Lastly, each hospital report different number of procedures. This difference
+in terms of observation size can throw off our measure of variability (thus
+consistency). Therefore, in the “analytical_procedures_by_provider”
+table, our consistency measure is “procedures_std_err” – the
+standard error rather than standard deviation across varying number of
+procedures.
+
+
+<Data Considered>
+
+Hospitals that reported too few procedures should not be considered.
+Therefore, hospitals with fewer than 26 (75%) of all 36 procedures reported
+are excluded. This filters the list down to 2928 hospitals.
+
+
+<Conclusion>
+
+Our results are somewhat different from the popular rankings one can find
+online. Several reasons can account for this difference: First, our procedures
+are a selected subset of all measures conducted on the hospitals – only 36
+measures from “effective_care” and “readmission” out of the
+155 measures are considered. Second, popular rankings often consider larger
+health care systems, which is a different collective of observations than
+ours. Our top ranked hospital, University Health Shreveport, has a weighted,
+standardized procedure score large enough to be placed in the first bucket,
+and the smallest standard error to be placed first within the same bucket.
+

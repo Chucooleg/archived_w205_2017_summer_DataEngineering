@@ -1,0 +1,120 @@
+<Hive Query>
+
+SELECT
+"hospitals_surveys" AS pair,
+ROUND(CORR(hospital_overall_rating, surveys_mean),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"procedures_surveys" AS pair,
+ROUND(CORR(procedures_mean, surveys_mean),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"hospitals_nurses" AS pair,
+ROUND(CORR(hospital_overall_rating, surveys_communication_with_nurses_score),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"hospitals_doctors" AS pair,
+ROUND(CORR(hospital_overall_rating, surveys_communication_with_doctors_score),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"hospitals_staff" AS pair,
+ROUND(CORR(hospital_overall_rating, surveys_responsiveness_of_hospital_staff_score),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"hospitals_pain" AS pair,
+ROUND(CORR(hospital_overall_rating, surveys_pain_management_score),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"hospitals_medicines" AS pair,
+ROUND(CORR(hospital_overall_rating, surveys_communication_about_medicines_score),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"hospitals_discharge" AS pair,
+ROUND(CORR(hospital_overall_rating, surveys_discharge_information_score),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"procedures_nurses" AS pair,
+ROUND(CORR(procedures_mean, surveys_discharge_information_score),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"procedures_nurses" AS pair,
+ROUND(CORR(procedures_mean, surveys_communication_with_nurses_score),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"procedures_doctors" AS pair,
+ROUND(CORR(procedures_mean, surveys_communication_with_doctors_score),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"procedures_staff" AS pair,
+ROUND(CORR(procedures_mean, surveys_responsiveness_of_hospital_staff_score),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"procedures_pain" AS pair,
+ROUND(CORR(procedures_mean, surveys_pain_management_score),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"procedures_medicines" AS pair,
+ROUND(CORR(procedures_mean, surveys_communication_about_medicines_score),4) AS correlation
+FROM analytical_correlation_by_provider
+UNION
+SELECT
+"procedures_discharge" AS pair,
+ROUND(CORR(procedures_mean, surveys_discharge_information_score),4) AS correlation
+FROM analytical_correlation_by_provider
+ORDER BY ABS(correlation) DESC;
+
+
+<Results>
+
+hospitals_nurses        0.5414
+hospitals_surveys       0.5375
+hospitals_staff 0.509
+hospitals_pain  0.495
+hospitals_medicines     0.4641
+hospitals_discharge     0.3993
+hospitals_doctors       0.3993
+procedures_staff        -0.2595
+procedures_surveys      -0.254
+procedures_pain -0.2465
+procedures_nurses       -0.2447
+procedures_doctors      -0.1933
+procedures_discharge    -0.1933
+procedures_nurses       -0.1933
+procedures_medicines    -0.1815
+<Dedicated Tables>
+analytical_correlation_by_provider
+
+
+<Usage>
+
+“analytical_correlation_by_provider” table is constructed to summarize hospital overall rating, procedures mean score and survey scores per hospitals. All columns are actively involved in the query. “hospital_overall_rating” is imported from “3nf_hospitals”; “procedures_mean” is imported from “analytical_procedures_by_provider”; the survey scores are imported and derived from the “3nf_surveys_responses” table.
+
+The Hive query calculates Pearson’s correlation between “hospital_overall_rating” and survey related scores, as well as between “procedures_mean” and survey related scores. Results are ordered by absolute values of correlations.
+
+
+<Data/Challenges>
+
+Each record is based on a hospital rather than state because the latter is over-summarized for our purpose. 
+
+“hospital_overall_rating” is chosen over other “national_comparison” measures, because the “national_comparison” measures largely overlap with procedures measured in the procedures table. For instance, “Mortality national comparison”, “Readmission national comparison” and “Timeliness of care national comparison” echoes with items measured in the procedures table; “Patient experience national comparison” also echoes with the survey responses. 
+
+Among the 8 dimensions included survey responses, “cleanliness_and_quietness_of_hospital_environment” is excluded for irrelevance because it has little to do with the procedures or effectiveness of hospitals, including it will weaken correlations for no strong reasons. Also, “overall_rating_of_hospital” is excluded for irrelevance because it actually combines survey scores in the “Patient Experience of Care” domain with non-survey scores in the “Clinical Process of Care” domain.
+
+
+<Conclusion>
+
+Our query results show that hospital quality has a moderate, positive correlation with all the survey scores. Among correlation between hospital quality and the individual items of survey scores, value corresponding to “communication_with_nurses” is the strongest.  It seems that patient perception of quality of care agrees with top-down hospital ratings to a fair degree. On the other hand, the procedures scores are weakly, negatively correlated with survey responses. One explanation could be that patient experience measures such as communication and procedures such as mortality rate are measuring somewhat different things. Ideally, we should observe close to zero correlation and with this dataset we are observing some noises.
+
