@@ -1,0 +1,49 @@
+3nf_hospitals
+-- 	transform hospitals to 3nf form
+--	meeting EHR criteria transformed to boolean
+--	overall rating transformed to decimal
+--	national comparison values transformed to -1,0,+1
+--	footnote columns are removed 
+
+
+3nf_effective_care
+-- 	transform effective_care to 3nf form
+--	general hospital info removed
+--	measure name moved to 3nf_measure table
+--	score and sample size transformed to decimal. Score "Low" - "Very High" is referring to annual patient flow, thus treat as NA.
+--	footnote column removed 
+
+
+3nf_readmissions
+-- 	transform readmissions to 3nf form
+--	general hospital info removed
+--	measure name moved to 3nf_measure table
+--	national comparison values transformed to -1,0,+1
+--	score, sample and confidence interval transformed to decimal
+--	footnote column removed 
+
+
+3nf_measures
+--  	rows filtered to only measures in effective_care and readmissions
+-- 	transform measures to 3nf form
+--	dates transformed to dates type
+--	quarter info removed because of redundancy
+--	missing measure info found from effective care appended 
+
+
+3nf_survey_references
+-- 	new table for summary statistics
+	floor, achievement_threshold and benchmark repetition from surverys_responses table
+--	scores transformed to decimal
+
+3nf_surveys_responses
+
+-- 	eliminate repeating rows
+--		achievement threshold, floor and benchmark moved to new table
+--	eliminate duplicate columns
+--		baseline rate and performance rate pivoted from columns to rows to faciliate filtering
+--	non-key column dependency on PK
+--		achievement points, improvement points and dimension score removed
+--		because they are derived from baseline and performance rate. 10 point
+--		scale also inappropriate for analysis
+--	scores transformed to decimal

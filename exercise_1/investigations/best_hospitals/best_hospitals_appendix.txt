@@ -1,0 +1,54 @@
+Question 1 Appendix: Weights applied on procedures
+
+
+critical treatment effectiveness-- *4
+
+Heart Failure (HF) 30-Day Mortality Rate
+Acute Myocardial Infarction (AMI) 30-Day Mortality Rate
+Acute Ischemic Stroke (STK) 30-Day Mortality Rate
+Pneumonia 30-Day Mortality Rate
+30-Day All-Cause Mortality Following Coronary Artery Bypass Graft (CABG) Surgery
+Chronic Obstructive Pulmonary Disease (COPD) 30-Day Mortality Rate
+
+Chronic Obstructive Pulmonary Disease (COPD) 30-Day Readmission Rate
+Pneumonia 30-Day Readmission Rate
+Acute Myocardial Infarction (AMI) 30-Day Readmission Rate
+Heart Failure (HF) 30-Day Readmission Rate
+Stroke (STK) 30-Day Readmission Rate
+30-Day Hospital-Wide All-Cause Unplanned Readmission Rate
+30-Day All-Cause Unplanned Readmission Following Coronary Artery Bypass Graft Surgery (CABG)
+30-Day Readmission Rate Following Elective Primary Total Hip Arthroplasty (THA) and/or Total Knee Arthroplasty (TKA)
+
+
+general treatment effectiveness-- *3
+
+Influenza Immunization
+Hospital Acquired Potentially-Preventable Venous Thromboembolism
+Thrombolytic Therapy
+Elective Delivery
+Healthcare workers given influenza vaccination
+Colonoscopy Interval for Patients with a History of Adenomatous Polyps - Avoidance of Inappropriate Use
+Venous Thromboembolism Warfarin Therapy Discharge Instructions
+
+
+short-term services efficiency-- *2
+
+Fibrinolytic Therapy Received Within 30 Minutes of ED Arrival
+Median Time to Transfer to Another Facility for Acute Coronary Intervention- Reporting Rate
+Median Time from ED Arrival to ED Departure for Admitted ED Patients
+Median Time from ED Arrival to ED Departure for Discharged ED Patients
+Median Time from ED Arrival to Provider Contact for ED patients
+Median Time to Pain Management for Long Bone Fracture
+Median Time to Fibrinolysis
+Median Time to ECG
+Admit Decision Time to ED Departure Time for Admitted Patients
+Head CT or MRI Scan Results for Acute Ischemic Stroke or Hemorrhagic Stroke Patients who Received Head CT or MRI Scan Interpretation Within 45 minutes of ED Arrival
+Aspirin at Arrival
+Emergency Department Volume
+Left without being seen
+
+
+long-term services efficiency-- *1
+
+Percentage of patients aged 18 years and older who had cataract surgery and had improvement in visual function achieved within 90 days following the cataract surgery
+Appropriate Follow-Up Interval for Normal Colonoscopy in Average Risk Patients
