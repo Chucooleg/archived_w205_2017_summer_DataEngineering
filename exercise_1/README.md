@@ -39,6 +39,8 @@ $cd /home/w205/w205_2017_summer/exercise_1/transforming/3nf_description.txt
 
 Step 4: Examine Queries and Answers
 
+$cd /home/w205/w205_2017_summer/exercise_1
+
 For question 1, run:
 
 $./question_1.sh
