@@ -34,7 +34,7 @@ $cd /home/w205/w205_2017_summer/exercise_1/transforming
 
 Note: A description of the 3nf transformation can be found in same directory
 
-$cd /home/w205/w205_2017_summer/exercise_1/transforming/3nf_description.txt
+$cat /home/w205/w205_2017_summer/exercise_1/transforming/3nf_description.txt
 
 
 Step 4: Examine Queries and Answers
