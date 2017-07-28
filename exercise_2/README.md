@@ -95,6 +95,7 @@ screenshot-stopwords-filter.png
 screenshot-stormComponents.png
 screenshot-finalresults-demo.png
 screenshot-histogram-demo.png
+screenshot-tableau-barchart.png
 ```
 
 
