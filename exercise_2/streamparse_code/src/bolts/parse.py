@@ -41,7 +41,7 @@ class ParseTweet(Bolt):
             if word.startswith("http"): continue
 
             # Strip leading and lagging punctuations
-            aword = word.strip("\"?><,'.:;-)~!*|").lower()
+            aword = word.strip("\"?><,'.:;-)~!*|$&(0123456789^%@").lower()
 
             # remove stop words
             if aword.lower() in self.stopwords: continue
