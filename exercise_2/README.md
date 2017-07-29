@@ -73,7 +73,7 @@ $\q
 ### 7.Examine bar chart.
 
 ```
-/home/w205/w205_2017_summer/exercise_2/plot.png
+/home/w205/w205_2017_summer/exercise_2/barcharts/plot.png
 ```
 
 
@@ -98,8 +98,38 @@ screenshot-histogram-demo.png
 screenshot-tableau-barchart.png
 ```
 
+### 9. Application Extension : Get daily wordcount to observe any change in tweeter word usages
 
-### 9. Examine Architecture Diagram
+```
+$chmod u+x,g+x /home/w205/w205_2017_summer/exercise_2/write_barchart_data_clear_table.sh
+```
+
+Run the following daily on EC2 instance:
+
+```
+$cd ~/extweetwordcount/
+$sparse run
+$/home/w205/w205_2017_summer/exercise_2/write_barchart_data_clear_table.sh
+```
+
+Examine the daily produced data for barchart on EC2 instance:
+
+```
+$cd /home/w205/w205_2017_summer/exercise_2/sample_output/
+$ls -l
+$cat /home/w205/w205_2017_summer/exercise_2/sample_output/histogram_sample_20170729.csv
+```
+
+Then git push changes to master branch, git pull changes to local computer. Import new daily file to Tableau for daily barchart. 
+
+
+### 9.1 Examine Collection of daily barcharts in pdfs
+
+```
+$cd /home/w205/w205_2017_summer/exercise_2/barcharts
+```
+
+### 10. Examine Architecture Diagram
 
 ```
 /home/w205/w205_2017_summer/exercise_2/architecture.pdf
