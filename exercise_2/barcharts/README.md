@@ -1,1 +1,1 @@
-daily bar chart exports
+Notice that the bar charts are different in count (y) scale. This is because the demo didn't try to run with consistent time intervals daily. In the real application setting, streamparse should run for the whole day (24 hrs) and produce bar charts daily. In that case the count scales would be similar.
