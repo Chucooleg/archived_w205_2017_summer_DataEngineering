@@ -123,7 +123,7 @@ $cat /home/w205/w205_2017_summer/exercise_2/sample_output/histogram_sample_20170
 Then git push changes to master branch, git pull changes to local computer. Import new daily file to Tableau for daily barchart. 
 
 
-### 9.1 Examine Collection of daily barcharts in pdfs
+### 9.1 Examine Collection of daily barcharts
 
 ```
 $cd /home/w205/w205_2017_summer/exercise_2/barcharts
